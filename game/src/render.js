@@ -360,10 +360,15 @@ function drawHelicopter(g, ctx, camX, camY) {
   ctx.beginPath();
   ctx.arc(px, py, 150, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = '#22283a';
+  ctx.fillStyle = '#2c3550';
   ctx.beginPath();
-  ctx.arc(x, y, 13, 0, Math.PI * 2);
+  ctx.arc(x, y, 16, 0, Math.PI * 2);
   ctx.fill();
+  ctx.strokeStyle = '#c9d4ff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(x, y, 16, 0, Math.PI * 2);
+  ctx.stroke();
   ctx.strokeStyle = '#c9d4ff';
   ctx.lineWidth = 3;
   const ra = h.angle;
@@ -385,11 +390,11 @@ function drawNightOverlay(g, ctx, w, h, camX, camY) {
   ctx.fillRect(0, 0, w, h);
   if (day < 0.6) {
     // Streetlight pools along the roads.
-    ctx.fillStyle = 'rgba(255,214,120,0.10)';
+    ctx.fillStyle = 'rgba(255,214,120,0.06)';
     for (const rx of g.city.roadsV) {
       for (let y = 200; y < g.city.h; y += 420) {
         ctx.beginPath();
-        ctx.arc(rx + g.city.roadW / 2 - camX, y - camY, 46, 0, Math.PI * 2);
+        ctx.arc(rx + g.city.roadW / 2 - camX, y - camY, 36, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -489,7 +494,7 @@ function drawMinimap(g, ctx, w, h) {
   ctx.fillRect(x0 + 3020 * sx, y0, (g.city.w - 3020) * sx, size);
   ctx.fillStyle = '#3d4a2a';
   ctx.fillRect(x0, y0, 3020 * sx, size);
-  ctx.strokeStyle = 'rgba(200,200,200,0.5)';
+  ctx.strokeStyle = 'rgba(220,220,220,0.28)';
   ctx.lineWidth = 1;
   for (const rx of g.city.roadsV) {
     ctx.beginPath();
@@ -527,6 +532,11 @@ function drawMinimap(g, ctx, w, h) {
   ctx.arc(x0 + g.player.x * sx, y0 + g.player.y * sy, 4, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(x0 + g.player.x * sx, y0 + g.player.y * sy, 5.5, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.strokeStyle = '#fff';
   ctx.lineWidth = 1;
   ctx.strokeRect(x0 - 4, y0 - 4, size + 8, size + 8);
 }
@@ -534,7 +544,7 @@ function drawMinimap(g, ctx, w, h) {
 // ---------- screens ----------
 
 function drawTitleScreen(g, ctx, w, h) {
-  ctx.fillStyle = 'rgba(6,8,18,0.72)';
+  ctx.fillStyle = 'rgba(6,8,18,0.55)';
   ctx.fillRect(0, 0, w, h);
   ctx.textAlign = 'center';
   ctx.fillStyle = '#ff2e88';

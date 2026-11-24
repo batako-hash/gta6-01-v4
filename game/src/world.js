@@ -153,10 +153,11 @@ function tryEnterCar(g) {
     // The driver bails out and runs.
     g.peds.push({ x: best.x + 20, y: best.y + 10, angle: 0, speed: PED_FLEE_SPEED, color: '#e8e0d0', flee: 3, panic: 3 });
     best.driver = null;
-    g.stats.carsStolen += 1;
-    addCrime(g, 0.34, true);
-    addToast(g, 'Car stolen — the cops noticed');
   }
+  // Stealing any car is a crime — parked or occupied, the cops notice.
+  g.stats.carsStolen += 1;
+  addCrime(g, 0.34, true);
+  addToast(g, 'Car stolen — the cops noticed');
   best.kind = 'player';
   best.hp = best.hp <= 0 ? 60 : best.hp;
   best.maxHp = playerMaxHp(g);

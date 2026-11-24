@@ -8,6 +8,7 @@ export const SHOT_NAMES = ['start', 'chase', 'mission', 'end'];
 
 export function applyShot(g, name) {
   const p = g.player;
+  g.toasts = [];
   if (name === 'start') {
     g.screen = 'title';
     g.time = 18.7;
@@ -20,10 +21,20 @@ export function applyShot(g, name) {
   if (name === 'chase') {
     g.screen = 'play';
     g.time = 20.4;
-    // Rook in a fast car, three stars, helicopter overhead, two patrol cars on the tail.
-    const car = makeCar(g, 1500, 1150, '#d94f3d', 'player');
+    // Rook in a fast car on the eastbound road, three stars, helicopter
+    // overhead, two patrol cars on the tail, Marina Pier far ahead.
+    g.missionIndex = 3;
+    g.missionState = {
+      def: { id: 4, title: 'Harbor Chase' },
+      stage: 0, kind: 'chase',
+      target: { x: 2920, y: 900 },
+      label: 'Reach Marina Pier with the cops on your tail',
+      radius: 100, seconds: 0, timeLeft: 0, progress: 0,
+      wanted: 3, guards: 0, checkpoints: null, checkpointIndex: 0, done: false,
+    };
+    const car = makeCar(g, 1390, 1080, '#d94f3d', 'player');
     car.speed = 300;
-    car.angle = -0.4;
+    car.angle = 0;
     g.cars.push(car);
     p.car = car;
     p.onFoot = false;
@@ -32,10 +43,10 @@ export function applyShot(g, name) {
     p.angle = car.angle;
     g.wanted = 3;
     g.heat = 0.6;
-    for (const [dx, dy] of [[-260, 120], [-180, -160]]) {
-      const cop = makeCar(g, car.x + dx, car.y + dy, '#1c2436', 'police');
+    for (const [cx, cy] of [[1180, 1080], [1300, 1080]]) {
+      const cop = makeCar(g, cx, cy, '#1c2436', 'police');
       cop.speed = 280;
-      cop.angle = -0.4;
+      cop.angle = 0;
       g.cars.push(cop);
     }
     g.heli = { x: car.x + 40, y: car.y - 120, angle: 0.6 };

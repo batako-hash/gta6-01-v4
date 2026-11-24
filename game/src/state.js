@@ -138,9 +138,14 @@ export function beginMission(g, index, stage) {
 
 export function missionTarget(g, st) {
   const city = g.city;
-  if (st.checkpoints) return landmarkPoint(city, st.checkpoints[0]);
-  if (typeof st.landmark === 'number') return landmarkPoint(city, st.landmark);
-  return { x: 1300, y: 1080 };
+  let point;
+  if (st.checkpoints) point = landmarkPoint(city, st.checkpoints[0]);
+  else if (typeof st.landmark === 'number') point = landmarkPoint(city, st.landmark);
+  else point = { x: 1300, y: 1080 };
+  // A stage may offset its target from the landmark (Juno hides behind the
+  // freight containers, not on the same spot the player drove in to).
+  if (st.dx || st.dy) point = { x: point.x + (st.dx || 0), y: point.y + (st.dy || 0) };
+  return point;
 }
 
 export function landmarkPoint(city, index) {

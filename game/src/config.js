@@ -118,7 +118,7 @@ export const MISSIONS = [
     reward: 900,
     stages: [
       { kind: 'goto', landmark: 4, label: 'Reach the Freight Yards', radius: 100 },
-      { kind: 'pickup', landmark: 4, label: 'Reach Juno — guards are shooting', radius: 70, guards: 4 },
+      { kind: 'pickup', landmark: 4, dx: 170, dy: 90, label: 'Reach Juno — guards are shooting', radius: 70, guards: 4 },
       { kind: 'escort', landmark: 3, label: 'Drive Juno to the Old Cathedral safehouse', radius: 100 },
     ],
   },

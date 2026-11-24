@@ -46,6 +46,32 @@ if (shot.shot) {
   g.frozen = true;
 }
 
+// Any script error is painted on the canvas itself, so a broken scene shows
+// its cause instead of a blank page.
+window.addEventListener('error', (e) => {
+  try {
+    ctx.fillStyle = '#300';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#f66';
+    ctx.font = '16px monospace';
+    ctx.fillText(`ERROR: ${e.message}`, 20, 40);
+  } catch (ignored) {
+    /* ignore */
+  }
+});
+
+// Paint once synchronously, so the first frame exists even if a screenshot
+// fires before the first animation frame.
+try {
+  drawGame(g, ctx, g.view);
+} catch (e) {
+  ctx.fillStyle = '#300';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f66';
+  ctx.font = '16px monospace';
+  ctx.fillText(`BOOT ERROR: ${e.message}`, 20, 40);
+}
+
 function announce(text) {
   if (statusEl) statusEl.textContent = text;
 }
