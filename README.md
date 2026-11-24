@@ -56,6 +56,20 @@ code (`shots.json` lists the `?shot=` scene for each): the title over the city
 at golden hour, a 3-star chase with the helicopter, the vault hold, and the
 story-complete screen.
 
+## How it was verified
+
+- **Simulation tests**: the build ran 27 Node simulation tests covering
+  the mission flow, the wanted system and the save/resume path — 27/27
+  passed.
+- **Full playthrough**: all 8 story missions were played end to end in
+  the browser, from the opening job to the finale heist.
+- **Screenshots**: the four shots in `screenshots/` were captured headless
+  in Firefox from the game's own staged scenes (`shots.json`) and visually
+  inspected — title, helicopter chase, vault hold, story-complete screen.
+- **Determinism**: the entrypoint `main.ts` produces byte-identical output
+  across two runs, and the city is seeded and reproducible.
+- **Kit check**: the local competition kit check passed 4/4 with 0 failures.
+
 ## License
 
 MIT — see `LICENSE`.
